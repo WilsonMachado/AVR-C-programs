@@ -1,5 +1,14 @@
-// Primera prueba de programación en C usando VS Code & AVR-GCC compiler. 
-// Luego probamos el AVR-DUDE para quemar el código en el micro uwu
+/*
+
+# Archivo:   ledBlink
+# Autor:     Wilson D. Machado T.
+# Copyright: WDesigns
+# Licencia:  Libre. Ejemplos para aprendizaje y referencia  
+
+# Descripción: Primera prueba de programación en C usando VS Code & AVR-GCC compiler.
+               Se hace parpadear un LED durante un periodo de tiempo. Incluye simulación.
+
+*/
 
 //*****************************//
 
@@ -11,10 +20,10 @@
 
 //*****************************//
 
-#define F_CPU 8000000       // Frecuencua del clock a 8 MHz :) 
+#define F_CPU 8000000UL       // Frecuencua del clock a 8 MHz :). UL = Unsigned Long 
 
-#include <avr/io.h>         // Librería mágica con todos los SFR para no tener que liarse con Datasheets :D
-#include <util/delay.h>     // Librería mágica para hacer tiempos de espera (de forma no óptima).
+#include <avr/io.h>           // Librería mágica con todos los SFR para no tener que liarse con Datasheets :D
+#include <util/delay.h>       // Librería mágica para hacer tiempos de espera (de forma no óptima).
 
 
 int main(void)  {
@@ -25,9 +34,10 @@ int main(void)  {
 
     while(1) {
 
-        PORTC ^= (1 << PORTC5); // XOR entre 1 y el estado lógico que hay en el PIN C5 (o para los amigos: 'toggle') c:
+        PORTC ^= (1 << PORTC5); // XOR entre 1 y el estado lógico que hay en el PIN C5 (o para los amigos:
+                                // 'toggle') c:
 
-        _delay_ms(100);     // Tiempo de espera de 0.1 segundo para ver el parpadeo del LED :))
+        _delay_ms(100);         // Tiempo de espera de 0.1 segundo para ver el parpadeo del LED :))
 
     }
 

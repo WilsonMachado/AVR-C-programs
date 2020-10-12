@@ -1,16 +1,3 @@
-//*****************************//
-
-// Definición del dispositivo  //
-
-#ifndef __AVR_ATmega328P__     // Esto es necesario porque sino, no se puede usar los FSRs.
-    #define __AVR_ATmega328P__
-#endif
-
-//*****************************//
-
-#include <avr/io.h>
-#include <util/delay.h>
-
 void adcInit()  {
 
     ADMUX &= ~(1 << ADLAR);     // Se ajusta la salida a la derecha. Recordar que el ADC de este micro es de 10 bits de resolución
@@ -67,6 +54,5 @@ int adcGetData(unsigned int channel) {
 
     ADCSRA &=~ (1 << ADEN);             // Se apaga el ADC, esto con el fin de ahorrar energía
 
-    
     return ADC;                         // Retorna el registro que contiene la información convertida
 }

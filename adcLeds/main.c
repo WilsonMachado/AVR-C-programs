@@ -1,7 +1,15 @@
-// En este programa se ilustra el uso del ADC del microcontrolador ATmega328P.
-// A través de un sensor de temperatura, se encienden (o se apagan) LEDs para determinar si la temperatura
-// es fría, tibia o cálida. 
+/*
 
+# Archivo:   adcLeds
+# Autor:     Wilson D. Machado T.
+# Copyright: WDesigns
+# Licencia:  Libre. Ejemplos para aprendizaje y referencia  
+
+# Descripción: En este programa se ilustra el uso del ADC del microcontrolador ATmega328P.
+               A través de un sensor de temperatura, se encienden (o se apagan) LEDs para determinar si la
+               temperatura es fría, tibia o cálida. Incluye simulación.
+
+*/
 
 //*****************************//
 
@@ -13,13 +21,13 @@
 
 //*****************************//
 
-#define F_CPU 8000000
+#define F_CPU 8000000UL
 
 #include <avr/io.h>
 #include <util/delay.h>
 
-#include "adc.h"
-#include "adc.c"
+#include "adc.h"        // Librería propia para mejor de ADC
+#include "adc.c"    
 
 #define cold 18.0       // Temperatura fría
 #define hot  30.0       // Temperatura caliente
@@ -38,24 +46,24 @@ int main(void)  {
         
         if(result >= hot){            
             
-            PORTB |= (1 << PORTB0);                               
+            PORTB |= (1 << PORTB0);       // Enciende el PIN B0 (LED rojo de temperatura caliente)                       
             
-            PORTB &= ~(1 << PORTB1);
-            PORTB &= ~(1 << PORTB2);
+            PORTB &= ~(1 << PORTB1);      // Apaga el PIN B1 (LED amarillo de temperatura tibia)  
+            PORTB &= ~(1 << PORTB2);      // Apaga el PIN B2 (LED azul de temperatura fría)  
 
         } else if (result <= cold) {
 
-            PORTB |= (1 << PORTB2);
+            PORTB |= (1 << PORTB2);       // Enciende el PIN B2 (LED azul de temperatura fría)
             
-            PORTB &= ~(1 << PORTB0);
-            PORTB &= ~(1 << PORTB1);
+            PORTB &= ~(1 << PORTB0);      // Apaga el PIN B0 (LED rojo de temperatura caliente) 
+            PORTB &= ~(1 << PORTB1);      // Apaga el PIN B1 (LED amarillo de temperatura fría)
 
         }else    {
             
-            PORTB |= (1 << PORTB1);            
+            PORTB |= (1 << PORTB1);       // Enciende el PIN B1 (LED amarillo de temperatura caliente)          
             
-            PORTB &= ~(1 << PORTB0);
-            PORTB &= ~(1 << PORTB2);           
+            PORTB &= ~(1 << PORTB0);      // Apaga el PIN B0 (LED rojo de temperatura caliente)
+            PORTB &= ~(1 << PORTB2);      // Apaga el PIN B2 (LED azul de temperatura fría)       
 
         }         
 
