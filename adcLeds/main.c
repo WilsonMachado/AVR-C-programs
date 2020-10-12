@@ -36,7 +36,7 @@ int main(void)  {
         
         float result = (adcGetData(0))/2; // Conversión de la lectura del LM35 a Temperatura, relación 10 mV : 1 °C
         
-        if(result >= hot){
+        if(result >= hot){            
             
             PORTB |= (1 << PORTB0);                               
             

@@ -1,7 +1,5 @@
 # Ruta a incluir en el C/C++ de VS Code: C:\WinAVR-20100110\avr\include
 
-# Definición de dispositivo
-
 #//*****************************//
 
 #// Definición del dispositivo  //
@@ -28,7 +26,7 @@
 TARGET = main
 
 DEVICE     = atmega328p
-CLOCK      = 8000000
+CLOCK      = 16000000UL
 OBJECTS    = $(TARGET).o
 #PROGRAMMER = -c arduino -P $(PORT) -b 19200 
 #FUSES      = -U lfuse:w:0x64:m -U hfuse:w:0xdd:m -U efuse:w:0xff:m
