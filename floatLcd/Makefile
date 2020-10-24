@@ -27,13 +27,11 @@
 
 TARGET = main
 
-DEVICE     = atmega328p
-CLOCK      = 16000000
-PORT       = COM3
-
+DEVICE     = atmega32
+CLOCK      = 8000000UL
 OBJECTS    = $(TARGET).o
-PROGRAMMER = -c arduino -P $(PORT) -b 19200 
-#FUSES      = -U lfuse:w:0x64:m -U hfuse:w:0xdd:m -U efuse:w:0xff:m  # -> Configurar aquí los fuses
+#PROGRAMMER = -c arduino -P $(PORT) -b 19200 
+#FUSES      = -U lfuse:w:0x64:m -U hfuse:w:0xdd:m -U efuse:w:0xff:m
 
 
 ######################################################################
@@ -41,12 +39,12 @@ PROGRAMMER = -c arduino -P $(PORT) -b 19200
 
 # Líneas para el programador y compilador respectivamente:
 
-AVRDUDE = avrdude $(PROGRAMMER) -p $(DEVICE)
+#AVRDUDE = avrdude $(PROGRAMMER) -p $(DEVICE)
 COMPILE = avr-gcc -Wall -Os -DF_CPU=$(CLOCK) -mmcu=$(DEVICE)
 
 
 # Inicio de creación de los archivos objetivos:
-all:	$(TARGET).hex flash
+all:	$(TARGET).hex
 
 .c.o:
 	$(COMPILE) -c $< -o $@
@@ -58,18 +56,6 @@ all:	$(TARGET).hex flash
 
 .c.s:
 	$(COMPILE) -S $< -o $@
-
-flash:	all										# Para flashear el código en la tarjeta de desarrollo Arduino
-	$(AVRDUDE) -U flash:w:main.hex:i			
-												# Se debe tener instalado el AVR-DUDE. Usar el AVR TOOLCHAIN
-fuse:											# Esta línea permite cambiar los fuses (lock bits) del micros
-	$(AVRDUDE) $(FUSES)
-
-install: flash fuse
-
-# Esta opción la verdad la encontré en internet y me pareció interesante. Se investigará más a fondo
-#load: all
-	#bootloadHID main.hex
 
 clean:
 	rm -f $(TARGET).hex $(TARGET).elf $(OBJECTS)
